@@ -1,0 +1,98 @@
+# ============================================================
+# ⚙️ CONFIGURATION INSTRUCTIONS
+# ============================================================
+# Before deploying this file, update the following values:
+#
+# 1. YOUR_API_KEY
+#    - Replace with your Plex Token
+#    - Get it from: Plex → Settings → Account → (or via token tools)
+#
+# 2. YOUR_IP_ADDRESS
+#    - Replace with the IP address of your Plex server
+#    - Format: http://YOUR_IP_ADDRESS:32400
+#
+# 3. Timezone (TZ)
+#    - Replace with your local timezone if needed
+#    - Example: Europe/London, America/New_York, etc.
+#
+# 4. Namespace
+#    - Currently set to: plex
+#    - Update if deploying elsewhere
+#
+# ============================================================
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: plex-exporter-secret
+  namespace: plex
+type: Opaque
+stringData:
+  PLEX_TOKEN: "YOUR_API_KEY"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plex-exporter-config
+  namespace: plex
+data:
+  TZ: "Europe/London"
+  PLEX_SERVER: "http://YOUR_IP_ADDRESS:32400"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-plex-exporter
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-plex-exporter
+  template:
+    metadata:
+      labels:
+        app: prometheus-plex-exporter
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      containers:
+        - name: prometheus-plex-exporter
+          image: ghcr.io/timothystewart6/prometheus-plex-exporter:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+          env:
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: plex-exporter-config
+                  key: TZ
+            - name: PLEX_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: plex-exporter-config
+                  key: PLEX_SERVER
+            - name: PLEX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: plex-exporter-secret
+                  key: PLEX_TOKEN
+          securityContext:
+            allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-plex-exporter-service
+  namespace: plex
+spec:
+  type: NodePort
+  selector:
+    app: prometheus-plex-exporter
+  ports:
+    - port: 9000
+      targetPort: 9000
+      nodePort: 30900

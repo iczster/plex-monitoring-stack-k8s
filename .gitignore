@@ -1,0 +1,4 @@
+otel-plex/otelcol
+*.log
+*.out
+.DS_Store

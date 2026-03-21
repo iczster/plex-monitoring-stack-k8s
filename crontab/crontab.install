@@ -1,0 +1,50 @@
+# ============================================================
+# ⚙️ CONFIGURATION INSTRUCTIONS
+# ============================================================
+# Replace <PATH_TO_YOUR_PROM_SCRIPTS> with your scripts directory
+# Ensure scripts are executable: chmod +x *.sh
+# ============================================================
+
+##############################
+# 🔴 HIGH FREQUENCY (1 min)
+##############################
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/radarr_status.sh
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/sonarr_status.sh
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/plex_status.sh
+
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/radarr_proc_status.sh
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/sonarr_proc_status.sh
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/plex_proc_status.sh
+* * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/nzbget_proc_status.sh
+
+##############################
+# 🟡 MEDIUM (every 5 mins)
+##############################
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/cpu_temp_status.sh
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/cpu_power_status.sh
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/gpu_power_status.sh
+
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/disk_write_status.sh
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/disk_read_status.sh
+
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/network_out_status.sh
+*/5 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/network_in_status.sh
+
+##############################
+# 🔵 LOW (every 10 mins)
+##############################
+*/10 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/pageouts_status.sh
+*/10 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/pageins_status.sh
+*/10 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/swapins_status.sh
+*/10 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/swapouts_status.sh
+
+*/10 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/pages_active_status.sh
+*/10 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/pages_free_status.sh
+
+##############################
+# 🟣 VERY LOW (hourly/daily)
+##############################
+0 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/boot_datetime_status.sh
+0 * * * * <PATH_TO_YOUR_PROM_SCRIPTS>/grafana_version_status.sh
+
+15 13 * * * <PATH_TO_YOUR_PROM_SCRIPTS>/download_speed_status.sh
