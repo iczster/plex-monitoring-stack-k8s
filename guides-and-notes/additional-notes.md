@@ -33,7 +33,7 @@ These versions represent a known-good configuration, though more recent versions
 
 ---
 
-### ## 1. Plex Server Health
+### 1. Plex Server Health
 
 **Purpose:**  
 Provides high-level visibility into the overall health and performance of the Plex server and associated services.
@@ -61,7 +61,7 @@ Provides high-level visibility into the overall health and performance of the Pl
 ![Resource Utilisation Info](../images/resource-utilisation-info.png)
 ---
 
-### ## 2. Plex Host Metrics
+### 2. Plex Host Metrics
 
 **Purpose:**  
 Offers deep dive system level metrics across all hosts running components of the Plex Monitoring stack.  
@@ -82,7 +82,7 @@ This dashboard includes *30-day metric retention* for historical trend analysis.
 
 ---
 
-### ## 3. Plex Insights
+### 3. Plex Insights
 
 **Purpose:**  
 Provides detailed analytics on how your Plex media is being consumed.  
