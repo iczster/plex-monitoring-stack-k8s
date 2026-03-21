@@ -111,11 +111,22 @@ pre-provisioning-grafana.sh
 ### 3. Deployment Steps
 
 
+```bash
 kubectl apply -f prometheus.yaml
+```
+```bash
+kubectl apply -f grafana.yaml
+```
+```bash
 kubectl apply -f cadvisor.yaml
+```
+```bash
 kubectl apply -f plex-exporter.yaml
+```
+```bash
 kubectl apply -f kube-state-metrics.yaml
-
+```
+> Check the status of the pod & logs after each deployment
 ---
 
 
