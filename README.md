@@ -98,8 +98,9 @@ These must be **unique** and must not overlap your existing Docker Compose monit
 
 ### Create namespace
 
+```bash
 kubectl apply -f namespace.yaml 
-
+```
 ## 2. Grafana Dashboard Provisioning Step (IMPORTANT)
 
 > Create configmaps to provision dashboards BEFORE Grafana starts:
